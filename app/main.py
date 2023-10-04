@@ -4,10 +4,10 @@ def main():
     print("Logs from your program will appear here!")
 
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_socket.bind(("localhost", 8080))
+    server_socket.bind(("localhost", 4221))
     server_socket.listen(1)
 
-    print("Server listening on port 8080")
+    print("Server listening on port 4221")
 
     while True:
         client_socket, client_address = server_socket.accept()
