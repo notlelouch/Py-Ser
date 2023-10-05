@@ -5,7 +5,7 @@ def handle_request(request_data):
         response = "HTTP/1.1 200 OK\r\n\r\nHello Aryan!!"
     else:
         response = "HTTP/1.1 400 Bad Request\r\n\r\nPage not found"
-
+    return response
 def main():
     print("Logs from your program will appear here!")
     
