@@ -1,5 +1,11 @@
 import socket
 
+def handle_request(request_data):
+    if request_data.startswith("GET /index.html"):
+        response = "HTTP/1.1 200 OK\r\n\r\nHello Aryan!!"
+    else:
+        response = "HTTP/1.1 400 Bad Request\r\n\r\nPage not found"
+
 def main():
     print("Logs from your program will appear here!")
     
@@ -7,9 +13,9 @@ def main():
 
     while True:
         client_socket, client_address = server_socket.accept()# wait for client
-
         request_data = client_socket.recv(1024).decode("utf-8")
-        response = "HTTP/1.0 200 OK\r\n\r\nHello Aryan!!"
+        
+        response = handle_request(request_data)
 
         client_socket.send(response.encode("utf-8"))
         client_socket.close()
