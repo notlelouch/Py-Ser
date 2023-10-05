@@ -17,7 +17,8 @@ def main():
         
         response = handle_request(request_data)
 
-        client_socket.send(response.encode("utf-8"))
+        if response is not None:
+            client_socket.send(response.encode("utf-8"))
         client_socket.close()
         
 if __name__ == "__main__":
