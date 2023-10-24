@@ -2,7 +2,7 @@ import socket
 
 def handle_request(request_data):
     if request_data.startswith("GET / HTTP/1.1"):
-        response = "HTTP/1.1 200 OK\r\n\r\nHello Aryan!!"
+        response = "HTTP/1.1 200 OK\r\n\r\nHello Aryan!"
     else:
         response = "HTTP/1.1 404 Bad Request\r\n\r\nPage not found"
     return response
