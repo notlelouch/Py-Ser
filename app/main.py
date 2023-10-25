@@ -7,10 +7,10 @@ def handle_request(request_data):
     if parts[1].startswith("/"):
         response_string = parts[1].split("/")
         
-        if len(path_parts) == 2:
+        if len(response_string) == 2:
             response = "HTTP/1.1 200 OK\r\n\r\n"
             
-        if len(response) > 2:
+        if len(response_string) > 2:
             str_response = response_string.split("/echo/")[1]
             str_len_response += len(response_string)
             response = "HTTP/1.1 200 OK\r\n\r\n Content-Type: text/plain \r\n\r\n Content_length: str_len_response\r\n\r\n string_response\r\n\r\n"
