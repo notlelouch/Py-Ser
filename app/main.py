@@ -1,11 +1,28 @@
 import socket
 
 def handle_request(request_data):
-    if request_data.startswith("GET / HTTP/1.1"):
-        response = "HTTP/1.1 200 OK\r\n\r\nHello Aryan!"
+    input_string = request_data.strip()
+    parts = input_string.split()
+
+    if len(parts) >= 3 and parts[0] == "GET":
+        path = parts[1]
+        
+        response_string = path.split("/echo/")[1]
+        
+        response = "HTTP/1.1 200 OK\r\n"
+        response += "Content-Type: text/plain"
+        response += len(response_string)
     else:
-        response = "HTTP/1.1 404 Bad Request\r\n\r\nPage not found"
+        response = "HTTP/1.1 404 Bad Request\r\n\r\ninvalid request"
+    
     return response
+        
+    # if request_data.startswith("GET HTTP/1.1"):
+    #     response = "HTTP/1.1 200 OK\r\n\r\nHello Aryan!"    
+    #     response += " " + response_string
+    # else:
+    #     response = "HTTP/1.1 404 Bad Request\r\n\r\ninvalid request"
+    # return response
 def main():
     print("Logs from your program will appear here!")
     
