@@ -4,16 +4,19 @@ def handle_request(request_data):
     input_string = request_data.strip()
     parts = input_string.split()
 
-    if len(parts) >= 3 and parts[0] == "GET":
-        path = parts[1]
+    if parts[1].startswith("/"):
+        response_string = parts[1].split("/")
         
-        response_string = path.split("/echo/")[1]
-        
-        response = "HTTP/1.1 200 OK\r\n"
-        response += "Content-Type: text/plain"
-        response += len(response_string)
+        if len(path_parts) == 2:
+            response = "HTTP/1.1 200 OK\r\n\r\n"
+            
+        if len(response) > 2:
+            str_response = response_string.split("/echo/")[1]
+            str_len_response += len(response_string)
+            response = "HTTP/1.1 200 OK\r\n\r\n Content-Type: text/plain \r\n\r\n Content_length: str_len_response\r\n\r\n string_response\r\n\r\n"
+        return response
     else:
-        response = "HTTP/1.1 404 Bad Request\r\n\r\ninvalid request"
+        response = "HTTP/1.1 404 Bad Request\r\n\r\ninvalid request "
     
     return response
         
