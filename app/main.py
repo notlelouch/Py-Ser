@@ -14,7 +14,7 @@ def handle_request(request_data):
             str_response = parts[1].split("/echo/")
             if len(str_response) == 2:
                 final_str_response = str_response[1]
-                str_len_response += len(final_str_response)
+                str_len_response = len(final_str_response)
                 response = "HTTP/1.1 200 OK\r\n"
                 response += "Content-Type: text/plain\r\n"
                 response += f"Content-Length: {str_len_response}\r\n"
