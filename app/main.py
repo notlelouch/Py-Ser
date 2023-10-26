@@ -15,7 +15,12 @@ def handle_request(request_data):
             if len(str_response) == 2:
                 final_str_response = str_response[1]
                 str_len_response += len(final_str_response)
-                response = "HTTP/1.1 200 OK\r\n\r\n Content-Type: text/plain \r\n\r\n Content_length: str_len_response\r\n\r\n final_str_response\r\n\r\n"
+                response = "HTTP/1.1 200 OK\r\n"
+                response += "Content-Type: text/plain\r\n"
+                response += f"Content-Length: {str_len_response}\r\n"
+                response += "\r\n"  # End of headers
+                response += final_str_response  # Response content
+
             else:
                 response = "HTTP/1.1 404 Bad Request\r\n\r\ninvalid request "
         return response
@@ -23,13 +28,6 @@ def handle_request(request_data):
         response = "HTTP/1.1 404 Bad Request\r\n\r\ninvalid request "
     
     return response
-        
-    # if request_data.startswith("GET HTTP/1.1"):
-    #     response = "HTTP/1.1 200 OK\r\n\r\nHello Aryan!"    
-    #     response += " " + response_string
-    # else:
-    #     response = "HTTP/1.1 404 Bad Request\r\n\r\ninvalid request"
-    # return response
 def main():
     print("Logs from your program will appear here!")
     
