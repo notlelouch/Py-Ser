@@ -44,6 +44,14 @@ def handle_request(request_data):
         response += f"Content-Length: {len(echo_content)}\r\n"
         response += "\r\n"  # End of headers
         response += echo_content  # Response content
+    elif path.startswith("/user-agent"):
+        # Get the echo content from the path
+        echo_content = headers["User-Agent"]
+        response = "HTTP/1.1 200 OK\r\n"
+        response += "Content-Type: text/plain\r\n"
+        response += f"Content-Length: {len(echo_content)}\r\n"
+        response += "\r\n"  # End of headers
+        response += echo_content 
     else:
         response = "HTTP/1.1 404 Not Found\r\n\r\nPage not found"
 
