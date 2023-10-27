@@ -1,4 +1,14 @@
 import socket
+import threading
+
+def handle_client(client_socket):
+    # Existing code for handling a single client
+    request_data = client_socket.recv(1024).decode("utf-8")
+    response = handle_request(request_data)
+    if response is not None:
+        client_socket.send(response.encode("utf-8"))
+    client_socket.close()
+
 
 def handle_request(request_data):
     # Split the request data into lines
@@ -64,14 +74,8 @@ def main():
 
     while True:
         client_socket, client_address = server_socket.accept()# wait for client
-        
-        request_data = client_socket.recv(1024).decode("utf-8")
-        
-        response = handle_request(request_data)
-
-        if response is not None:
-            client_socket.send(response.encode("utf-8"))
-        client_socket.close()
+        client_thread = threading.Thread(target=handle_client, args=(client_socket,))
+        client_thread.start()
         
 if __name__ == "__main__":
     main()
