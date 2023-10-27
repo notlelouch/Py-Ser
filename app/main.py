@@ -1,16 +1,16 @@
 import socket
 import threading
 
-def handle_client(client_socket):
+def handle_client(client_socket, file_directory):
     # Existing code for handling a single client
     request_data = client_socket.recv(1024).decode("utf-8")
-    response = handle_request(request_data)
+    response = handle_request(request_data, file_directory)
     if response is not None:
         client_socket.send(response.encode("utf-8"))
     client_socket.close()
 
 
-def handle_request(request_data):
+def handle_request(request_data, file_directory):
     # Split the request data into lines
     lines = request_data.strip().split("\r\n")
 
@@ -62,12 +62,29 @@ def handle_request(request_data):
         response += f"Content-Length: {len(echo_content)}\r\n"
         response += "\r\n"  # End of headers
         response += echo_content 
+    elif path.startswith("/files/"):
+        filename = path.split("/files/")[1]
+        file_path = os.path.join(file_directory, filename)
+
+        if os.path.exists(file_path) and os.path.isfile(file_path):
+            with open(file_path, "rb") as file:
+                file_content = file.read()
+            response = "HTTP/1.1 200 OK\r\n"
+            response += "Content-Type: application/octet-stream\r\n"
+            response += f"Content-Length: {len(file_content)}\r\n"
+            response += "\r\n"
+            response = response.encode("utf-8") + file_content
     else:
         response = "HTTP/1.1 404 Not Found\r\n\r\nPage not found"
 
     return response
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--directory", required=True, help="Directory containing files to serve")
+    args = parser.parse_args()
+    file_directory = args.directory
+
     print("Logs from your program will appear here!")
     
     server_socket = socket.create_server(("localhost", 4221), reuse_port=True)
