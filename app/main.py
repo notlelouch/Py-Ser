@@ -1,6 +1,9 @@
 import socket
 import threading
 
+directory = "/tmp/data/codecrafters.io/http-server-tester/" 
+    
+
 def handle_client(client_socket, directory):
     # Existing code for handling a single client
     request_data = client_socket.recv(1024).decode("utf-8")
@@ -91,8 +94,6 @@ def main():
     print("Logs from your program will appear here!")
     
     server_socket = socket.create_server(("localhost", 4221), reuse_port=True)
-    directory = "/tmp/data/codecrafters.io/http-server-tester/" 
-    
     while True:
         client_socket, client_address = server_socket.accept()# wait for client
         client_thread = threading.Thread(target=handle_client, args=(client_socket,))
