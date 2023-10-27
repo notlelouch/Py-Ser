@@ -1,5 +1,4 @@
 import socket
-import threading
 
 def handle_request(request_data):
     # Split the request data into lines
@@ -65,9 +64,10 @@ def main():
 
     while True:
         client_socket, client_address = server_socket.accept()# wait for client
+        
         request_data = client_socket.recv(1024).decode("utf-8")
-        client_thread = threading.Thread(target=handle_request, args=(request_data,))
-        client_thread.start()
+        
+        response = handle_request(request_data)
 
         if response is not None:
             client_socket.send(response.encode("utf-8"))
