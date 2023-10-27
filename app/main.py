@@ -1,7 +1,7 @@
 import socket
 import threading
 
-directory = "/tmp/data/codecrafters.io/http-server-tester/" 
+directory ="/tmp/data/codecrafters.io/http-server-tester/" 
     
 
 def handle_client(client_socket, directory):
