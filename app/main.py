@@ -2,7 +2,7 @@ import socket
 import threading
 
 def handle_client(client_socket):
-    # Existing code for handling a single client
+    # Existing code for handling a single clieent
     request_data = client_socket.recv(1024).decode("utf-8")
     response = handle_request(request_data)
     if response is not None:
