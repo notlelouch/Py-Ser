@@ -9,7 +9,7 @@ def handle_request(request_data):
     
     if len(request_line) != 3:
         response = "HTTP/1.1 400 Bad Request\r\n\r\nInvalid request"
-        return response
+        return response 
 
     method, path, protocol = request_line
 
@@ -65,8 +65,8 @@ def main():
     while True:
         client_socket, client_address = server_socket.accept()# wait for client
         request_data = client_socket.recv(1024).decode("utf-8")
-        
-        response = handle_request(request_data)
+        client_thread = threading.Thread(target=handle_request, args=(request_data,))
+        client_thread.start()
 
         if response is not None:
             client_socket.send(response.encode("utf-8"))
