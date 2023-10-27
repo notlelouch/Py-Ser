@@ -1,9 +1,9 @@
 import socket
 import threading
+import os
 
 directory ="/tmp/data/codecrafters.io/http-server-tester/" 
     
-
 def handle_client(client_socket, directory):
     # Existing code for handling a single client
     request_data = client_socket.recv(1024).decode("utf-8")
