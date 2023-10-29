@@ -33,7 +33,7 @@ def handle_request(request_data, directory=None):
         return response
 
     if method == "POST":
-        file_content = list[-1]
+        file_content = lines[-1]
         if path.startswith("/files/"):
             file_name = path[len("/files/"):]
         file_name = 'file_name.txt'
