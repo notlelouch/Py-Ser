@@ -32,8 +32,15 @@ def handle_request(request_data, directory=None):
         response = "HTTP/1.1 404 Not Found\r\n\r\nInvalid path"
         return response
 
-    if method != "GET":
-        response = "HTTP/1.1 405 Method Not Allowed\r\n\r\nMethod not supported"
+    if method == "POST":
+        file_content = list[-1]
+        if path.startswith("/files/"):
+            file_name = path[len("/files/"):]
+        file_name = 'file_name.txt'
+        destination_path = os.path.join(directory, file_name)
+        with open(destination_path, 'w') as file_name:
+            file_name.write(file_content)
+        response = "HTTP/1.1 201 resource created\r\n\r\n"
         return response
 
     # Initialize a dictionary to store headers.
