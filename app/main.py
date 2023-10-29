@@ -65,7 +65,7 @@ def handle_request(request_data, directory=None):
         response += "\r\n"  # End of headers
         response += echo_content 
     elif path.startswith("/files"):
-        print(f"Server will serve files from the directory: {args.directory}")
+        print(f"Server will serve files from the directory: {directory}")
         
         if directory:        
             filename = path[len("/files/"):]
