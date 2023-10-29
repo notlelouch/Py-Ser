@@ -65,6 +65,8 @@ def handle_request(request_data, directory=None):
         response += "\r\n"  # End of headers
         response += echo_content 
     elif path.startswith("/files"):
+        print(f"Server will serve files from the directory: {args.directory}")
+        
         if directory:        
             filename = path[len("/files/"):]
             file_path = os.path.join(directory, filename)
@@ -90,7 +92,7 @@ def main():
     print("Logs from your program will appear here!")
     parser = argparse.ArgumentParser(description="Simple HTTP server with file serving")
     parser.add_argument("--directory", help="The directory to serve files from")
-    args = parser.parse_args()
+    args = parser.parse_args()    
     
     server_socket = socket.create_server(("localhost", 4221), reuse_port=True)
 
