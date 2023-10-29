@@ -8,7 +8,10 @@ def handle_client(client_socket, directory):
     request_data = client_socket.recv(1024).decode("utf-8")
     response = handle_request(request_data, directory)
     if response is not None:
-        client_socket.send(response)
+        if type(response) != str:
+            client_socket.send(response.encode("utf-8"))
+        else:
+            client_socket.send(response)
     client_socket.close()
 
 
