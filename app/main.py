@@ -36,11 +36,10 @@ def handle_request(request_data, directory=None):
         file_content = lines[-1]
         if path.startswith("/files/"):
             file_name = path[len("/files/"):]
-        file_name = 'file_name.txt'
         destination_path = os.path.join(directory, file_name)
         with open(destination_path, 'w') as file_name:
             file_name.write(file_content)
-        response = "HTTP/1.1 201 resource created\r\n\r\n"
+        response = "HTTP/1.1 201 Created\r\n\r\n"
         return response
 
     # Initialize a dictionary to store headers.
