@@ -2,10 +2,11 @@
 
 ![](https://github.com/notlelouch/http-server-python/blob/master/banner.jpg)
 
+To edit:
+
 ```sh
 git add .
 git commit -m "pass stage" # any msg
 git push origin master
 ```
-
-Time to move on to the next stage!
+🚀
