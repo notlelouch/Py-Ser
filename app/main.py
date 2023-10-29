@@ -6,7 +6,7 @@ import argparse
 def handle_client(client_socket, directory=None):
     # Existing code for handling a single client
     request_data = client_socket.recv(1024).decode("utf-8")
-    response = handle_request(request_data, directory=None)
+    response = handle_request(request_data, directory)
     if response is not None:
         client_socket.send(response.encode("utf-8"))
     client_socket.close()
