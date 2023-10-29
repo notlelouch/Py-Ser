@@ -36,7 +36,7 @@ def handle_request(request_data, directory=None):
         response = "HTTP/1.1 405 Method Not Allowed\r\n\r\nMethod not supported"
         return response
 
-    # Initialize a dictionary to store headers
+    # Initialize a dictionary to store headers.
     headers = {}
 
     # Start from the second line, which is the first header
