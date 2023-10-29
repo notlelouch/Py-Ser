@@ -1,7 +1,9 @@
 import socket
 import threading
+import os 
+import argparse
 
-def handle_client(client_socket):
+def handle_client(client_socket, directory=None):
     # Existing code for handling a single client
     request_data = client_socket.recv(1024).decode("utf-8")
     response = handle_request(request_data)
@@ -10,7 +12,7 @@ def handle_client(client_socket):
     client_socket.close()
 
 
-def handle_request(request_data):
+def handle_request(request_data, directory=None):
     # Split the request data into lines
     lines = request_data.strip().split("\r\n")
 
@@ -62,6 +64,23 @@ def handle_request(request_data):
         response += f"Content-Length: {len(echo_content)}\r\n"
         response += "\r\n"  # End of headers
         response += echo_content 
+    elif path.startswith("/files"):
+        if directory:        
+            filename = path[len("/files/"):]
+            file_path = os.path.join(directory, filename)
+
+            if os.path.exists(file_path) and os.path.isfile(file_path):
+                with open(file_path, 'rb') as file:
+                    file_content = file.read()
+                    response = "HTTP/1.1 200 OK\r\n"
+                    response += "Content-Type: application/octet-stream\r\n"
+                    response += f"Content-Length: {len(file_content)}\r\n"
+                    response += "\r\n"  # End of headers
+                    response = response.encode("utf-8") + file_content
+            else:
+                response = "HTTP/1.1 404 Not Found\r\n\r\nPage not found"
+        else:
+            response = "HTTP/1.1 404 Not Found\r\n\r\nPage not found"
     else:
         response = "HTTP/1.1 404 Not Found\r\n\r\nPage not found"
 
@@ -69,6 +88,16 @@ def handle_request(request_data):
 
 def main():
     print("Logs from your program will appear here!")
+    parser = argparse.ArgumentParser(description="Simple HTTP server with file serving")
+    parser.add_argument("--directory", help="The directory to serve files from")
+    args = parser.parse_args()
+
+    if not args.directory:
+        print("Directory not provided. Files will not be served.")
+        return
+
+    print(f"Server will serve files from the directory: {args.directory}")
+    
     
     server_socket = socket.create_server(("localhost", 4221), reuse_port=True)
 
