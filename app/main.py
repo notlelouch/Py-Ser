@@ -91,13 +91,6 @@ def main():
     parser = argparse.ArgumentParser(description="Simple HTTP server with file serving")
     parser.add_argument("--directory", help="The directory to serve files from")
     args = parser.parse_args()
-
-    if not args.directory:
-        print("Directory not provided. Files will not be served.")
-        return
-
-    print(f"Server will serve files from the directory: {args.directory}")
-    
     
     server_socket = socket.create_server(("localhost", 4221), reuse_port=True)
 
