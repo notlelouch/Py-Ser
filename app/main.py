@@ -16,11 +16,22 @@ def handle_client(client_socket, directory):
 
 
 def handle_request(request_data, directory=None):
-    # Split the request data into lines
+    
     lines = request_data.strip().split("\r\n")
 
-    # Extract the request line
     request_line = lines[0].split()
+
+    # Initialize a dictionary to store headers.
+    headers = {}
+
+    # Start from the second line, which is the first header
+    for line in lines[1:]:
+        if not line:
+            # An empty line indicates the end of headers
+            break
+        # Split the header into name and value
+        header_name, header_value = line.split(":", 1)
+        headers[header_name] = header_value.strip()
     
     if len(request_line) != 3:
         response = "HTTP/1.1 400 Bad Request\r\n\r\nInvalid request"
@@ -42,18 +53,6 @@ def handle_request(request_data, directory=None):
         response = "HTTP/1.1 201 Created\r\n\r\n"
         return response
 
-    # Initialize a dictionary to store headers.
-    headers = {}
-
-    # Start from the second line, which is the first header
-    for line in lines[1:]:
-        if not line:
-            # An empty line indicates the end of headers
-            break
-        # Split the header into name and value
-        header_name, header_value = line.split(":", 1)
-        headers[header_name] = header_value.strip()
-
     # Process the request based on the path
     if path == "/":
         response = "HTTP/1.1 200 OK\r\n\r\nHello, World!"
@@ -64,9 +63,9 @@ def handle_request(request_data, directory=None):
         response += "Content-Type: text/plain\r\n"
         response += f"Content-Length: {len(echo_content)}\r\n"
         response += "\r\n"  # End of headers
-        response += echo_content  # Response content
+        response += echo_content 
     elif path.startswith("/user-agent"):
-        # Get the echo content from the path
+        
         echo_content = headers["User-Agent"]
         response = "HTTP/1.1 200 OK\r\n"
         response += "Content-Type: text/plain\r\n"
