@@ -3,7 +3,7 @@
 
 # Scriptx
 
-Py-Ser is a lightweight and simple HTTP server implemented in Python. It provides basic functionality for handling HTTP requests, including serving static files, echoing content, and capturing user-agent information.
+Py-Ser is a lightweight and simple HTTP server implemented in Python. It provides functionalities for handling HTTP requests, including serving static files, echoing content, and capturing user-agent information.
 
 ## Features
 
