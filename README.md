@@ -1,7 +1,7 @@
 [![progress-banner](https://backend.codecrafters.io/progress/http-server/fbcae4da-2b0b-4937-a75c-6ed8b1ae8e72)](https://app.codecrafters.io/users/notlelouch?r=2qF)
 
 
-# Scriptx
+# Py-Ser
 
 Py-Ser is a lightweight and simple HTTP server implemented in Python. It provides functionalities for handling HTTP requests, including serving static files, echoing content, and capturing user-agent information.
 
